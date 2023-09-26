@@ -24,4 +24,4 @@ jobs:
     - name: Install dependencies
       run: pnpm install
     - name: Lint project
-      run: pnpm run lint
+      run: SKIP_ENV_VALIDATION=1 pnpm run lint
