@@ -1,14 +1,10 @@
-import { signIn, signOut, useSession } from "next-auth/react";
+/* eslint-disable formatjs/no-literal-string-in-jsx */
 import Head from "next/head";
-import GoogleButton from "react-google-button";
 import { FormattedMessage, useIntl } from "react-intl";
-
-import { api } from "~/utils/api";
+import Nav from "~/components/nav";
 
 export default function Home() {
   const intl = useIntl();
-  const { data: sessionData } = useSession();
-  const hello = api.example.hello.useQuery({ text: "from Wundrum" });
 
   return (
     <>
@@ -20,30 +16,58 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className=" flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-          <h1 className="text-5xl font-extrabold tracking-tight text-[hsl(280,100%,70%)] sm:text-[5rem]">
-            <FormattedMessage id="APP_NAME" />
+      <main className="min-w-min p-16">
+        <Nav />
+        <section className="flex flex-col gap-8 pt-24">
+          <h1 className="text-8xl font-semibold">
+            <FormattedMessage id="COMING_SOON" />
           </h1>
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">
-              {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-              {hello.data ? hello.data.greeting : "Loading tRPC query..."}
-            </p>
-            <div className="flex flex-col items-center justify-center gap-4">
-              {!sessionData ? (
-                <GoogleButton onClick={() => void signIn("google")} />
-              ) : (
-                <button
-                  className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-                  onClick={() => void signOut()}
-                >
-                  <FormattedMessage id="SIGN_OUT" />
-                </button>
-              )}
-            </div>
+        </section>
+        <section className="flex flex-col gap-8 pl-16 pt-16">
+          <div className="text-lg">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt,
+            illo nisi doloremque rerum magni beatae? Beatae atque dolores,
+            cupiditate voluptas, totam vel sed repellat iure ex esse sit maxime
+            molestiae odit omnis doloribus alias, voluptatum nostrum! Modi
+            laborum at voluptates in mollitia adipisci numquam, animi
+            perferendis voluptatem exercitationem, laudantium tempore distinctio
+            repellat quaerat dicta eum nam ea fugiat facilis, consequuntur
+            aliquam.
           </div>
-        </div>
+          <div className="text-lg">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt,
+            illo nisi doloremque rerum magni beatae? Beatae atque dolores,
+            cupiditate voluptas, totam vel sed repellat iure ex esse sit maxime
+            molestiae odit omnis doloribus alias, voluptatum nostrum! Modi
+            laborum at voluptates in mollitia adipisci numquam, animi
+            perferendis voluptatem exercitationem, laudantium tempore distinctio
+            repellat quaerat dicta eum nam ea fugiat facilis, consequuntur
+            aliquam. Autem blanditiis harum nisi rem facilis molestias deserunt
+            qui, dolor ex nam reprehenderit tempore error accusamus aspernatur
+            magni quaerat similique dignissimos iste, possimus commodi! Error
+            necessitatibus repellendus molestiae laborum explicabo, natus
+            obcaecati aspernatur laboriosam repellat soluta nam itaque
+            voluptates quos quis omnis ad iste. Deserunt labore earum ut saepe
+            ipsum!
+          </div>
+          <div className="text-lg">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt,
+            illo nisi doloremque rerum magni beatae? Beatae atque dolores,
+            cupiditate voluptas, totam vel sed repellat iure ex esse sit maxime
+            molestiae odit omnis doloribus alias, voluptatum nostrum! Modi
+            laborum at voluptates in mollitia adipisci numquam, animi
+            perferendis voluptatem exercitationem, laudantium tempore distinctio
+            repellat quaerat dicta eum nam ea fugiat facilis, consequuntur
+            aliquam. Error necessitatibus repellendus molestiae laborum
+            explicabo, natus obcaecati aspernatur laboriosam repellat soluta nam
+            itaque voluptates quos quis omnis ad iste. Deserunt labore earum ut
+            saepe ipsum!
+            aliquam. Error necessitatibus repellendus molestiae laborum
+            explicabo, natus obcaecati aspernatur laboriosam repellat soluta nam
+            itaque voluptates quos quis omnis ad iste. Deserunt labore earum ut
+            saepe ipsum!
+          </div>
+        </section>
       </main>
     </>
   );

@@ -1,5 +1,17 @@
 {
   "APP_NAME": "Wundrum",
   "APP_DESCRIPTION": "A daily puzzle app.",
-  "SIGN_OUT": "Sign Out"
+  "SIGN_IN": "Sign In",
+  "SIGN_OUT": "Sign Out",
+  "TOGGLE_THEME": "Toggle theme",
+  "LIGHT": "Light",
+  "DARK": "Dark",
+  "SYSTEM": "System",
+  "OUR_GAMES": "Our games",
+  "HOOK_MESSAGE": "Select from one of our many games to play alone or with friends",
+  "WORDEL_HOOK": "Try and find todays word within 6 guesses",
+  "BOA_HOOK": "See how many words you can make with the 9 letters provided",
+  "LETTER_SQUARED_HOOK": "Link letters to make words. Can you connect all the letters within the word limit?",
+  "HOW_TO_PLAY": "How to play",
+  "COMING_SOON": "Coming soon..."
 }

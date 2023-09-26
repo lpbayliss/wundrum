@@ -8,6 +8,7 @@ import "~/styles/globals.css";
 import { IntlProvider } from "react-intl";
 import { useRouter } from "next/router";
 import { getMessages } from "~/i18n/getMessages";
+import { ThemeProvider } from "~/components/theme-provider";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -16,14 +17,21 @@ const MyApp: AppType<{ session: Session | null }> = ({
   const { locale } = useRouter();
 
   return (
-    <IntlProvider
-      locale={String(locale)}
-      messages={getMessages(String(locale))}
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
     >
-      <SessionProvider session={session}>
-        <Component {...pageProps} />
-      </SessionProvider>
-    </IntlProvider>
+      <IntlProvider
+        locale={String(locale)}
+        messages={getMessages(String(locale))}
+      >
+        <SessionProvider session={session}>
+          <Component {...pageProps} />
+        </SessionProvider>
+      </IntlProvider>
+    </ThemeProvider>
   );
 };
 
