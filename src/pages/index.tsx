@@ -1,7 +1,6 @@
 /* eslint-disable formatjs/no-literal-string-in-jsx */
 import Head from "next/head";
 import { FormattedMessage, useIntl } from "react-intl";
-import Nav from "~/components/nav";
 
 export default function Home() {
   const intl = useIntl();
@@ -17,7 +16,6 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="min-w-min p-16">
-        <Nav />
         <section className="flex flex-col gap-8 pt-24">
           <h1 className="text-8xl font-semibold">
             <FormattedMessage id="COMING_SOON" />
@@ -61,11 +59,10 @@ export default function Home() {
             aliquam. Error necessitatibus repellendus molestiae laborum
             explicabo, natus obcaecati aspernatur laboriosam repellat soluta nam
             itaque voluptates quos quis omnis ad iste. Deserunt labore earum ut
-            saepe ipsum!
-            aliquam. Error necessitatibus repellendus molestiae laborum
-            explicabo, natus obcaecati aspernatur laboriosam repellat soluta nam
-            itaque voluptates quos quis omnis ad iste. Deserunt labore earum ut
-            saepe ipsum!
+            saepe ipsum! aliquam. Error necessitatibus repellendus molestiae
+            laborum explicabo, natus obcaecati aspernatur laboriosam repellat
+            soluta nam itaque voluptates quos quis omnis ad iste. Deserunt
+            labore earum ut saepe ipsum!
           </div>
         </section>
       </main>

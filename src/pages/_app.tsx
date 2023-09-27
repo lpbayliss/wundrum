@@ -3,12 +3,11 @@ import { SessionProvider } from "next-auth/react";
 import { type AppType } from "next/app";
 
 import { api } from "~/utils/api";
-
-import "~/styles/globals.css";
 import { IntlProvider } from "react-intl";
 import { useRouter } from "next/router";
 import { getMessages } from "~/i18n/getMessages";
-import { ThemeProvider } from "~/components/theme-provider";
+import { ChakraProvider } from "@chakra-ui/react";
+import theme from "~/theme/theme";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -17,21 +16,16 @@ const MyApp: AppType<{ session: Session | null }> = ({
   const { locale } = useRouter();
 
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
+    <IntlProvider
+      locale={String(locale)}
+      messages={getMessages(String(locale))}
     >
-      <IntlProvider
-        locale={String(locale)}
-        messages={getMessages(String(locale))}
-      >
+      <ChakraProvider resetCSS theme={theme}>
         <SessionProvider session={session}>
           <Component {...pageProps} />
         </SessionProvider>
-      </IntlProvider>
-    </ThemeProvider>
+      </ChakraProvider>
+    </IntlProvider>
   );
 };
 
