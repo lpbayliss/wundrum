@@ -1,0 +1,118 @@
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+import {
+  Box,
+  Button,
+  HStack,
+  Heading,
+  Hide,
+  IconButton,
+  List,
+  ListItem,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  useColorMode,
+} from "@chakra-ui/react";
+import { FormattedMessage } from "react-intl";
+import {
+  ChevronDownIcon,
+  HamburgerIcon,
+  MoonIcon,
+  SunIcon,
+} from "@chakra-ui/icons";
+import { signIn, signOut, useSession } from "next-auth/react";
+
+const Nav = () => {
+  const { data } = useSession();
+  const { colorMode, toggleColorMode } = useColorMode();
+
+  const handleSignIn = () => {
+    void signIn("google");
+  };
+
+  const handleSignOut = () => {
+    void signOut();
+  };
+
+  return (
+    <Box
+      w="full"
+      zIndex="overlay"
+      bg={colorMode === "light" ? "accent.500" : "secondary.800"}
+    >
+      <HStack
+        as={List}
+        justifyContent="space-between"
+        p="4"
+        mx="auto"
+        maxW="8xl"
+      >
+        {/* Left */}
+        <HStack as={ListItem} alignItems="center">
+          <Heading as="h1" size="xl" mr="5">
+            <FormattedMessage id="APP_NAME" />
+          </Heading>
+          <Menu>
+            <MenuButton
+              as={Button}
+              variant="ghost"
+              rightIcon={<ChevronDownIcon />}
+            >
+              Games
+            </MenuButton>
+            <MenuList>
+              <MenuItem>Wordel</MenuItem>
+              <MenuItem>Spelling Boa</MenuItem>
+              <MenuItem>Letter Squared</MenuItem>
+              <MenuItem>Crossyword</MenuItem>
+              <MenuItem>Find-A-Word</MenuItem>
+              <MenuItem>Quick Mafs</MenuItem>
+            </MenuList>
+          </Menu>
+        </HStack>
+
+        {/* Right */}
+        <HStack as={ListItem}>
+          <Hide above="md">
+            <Menu>
+              <MenuButton
+                as={IconButton}
+                aria-label="Menu"
+                icon={<HamburgerIcon />}
+                variant="ghost"
+              />
+              <MenuList>
+                <MenuItem onClick={data ? handleSignOut : handleSignIn}>
+                  {data ? "Sign out" : "Sign in"}
+                </MenuItem>
+                <MenuItem
+                  icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
+                  onClick={toggleColorMode}
+                >
+                  Toggle Mode
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          </Hide>
+          <Hide below="md">
+            <Button
+              variant="ghost"
+              onClick={data ? handleSignOut : handleSignIn}
+            >
+              {data ? "Sign out" : "Sign in"}
+            </Button>
+            <IconButton
+              variant="ghost"
+              aria-label="Toggle color mode"
+              icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
+              onClick={toggleColorMode}
+            />
+          </Hide>
+        </HStack>
+      </HStack>
+    </Box>
+  );
+};
+
+export default Nav;

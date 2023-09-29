@@ -1,9 +1,13 @@
 /* eslint-disable formatjs/no-literal-string-in-jsx */
+import { Box, Flex, Heading, VStack, useColorMode } from "@chakra-ui/react";
+import Spline from "@splinetool/react-spline";
 import Head from "next/head";
-import { FormattedMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
+import Nav from "~/components/nav";
 
 export default function Home() {
   const intl = useIntl();
+  const { colorMode } = useColorMode();
 
   return (
     <>
@@ -15,57 +19,43 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="min-w-min p-16">
-        <section className="flex flex-col gap-8 pt-24">
-          <h1 className="text-8xl font-semibold">
-            <FormattedMessage id="COMING_SOON" />
-          </h1>
-        </section>
-        <section className="flex flex-col gap-8 pl-16 pt-16">
-          <div className="text-lg">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt,
-            illo nisi doloremque rerum magni beatae? Beatae atque dolores,
-            cupiditate voluptas, totam vel sed repellat iure ex esse sit maxime
-            molestiae odit omnis doloribus alias, voluptatum nostrum! Modi
-            laborum at voluptates in mollitia adipisci numquam, animi
-            perferendis voluptatem exercitationem, laudantium tempore distinctio
-            repellat quaerat dicta eum nam ea fugiat facilis, consequuntur
-            aliquam.
-          </div>
-          <div className="text-lg">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt,
-            illo nisi doloremque rerum magni beatae? Beatae atque dolores,
-            cupiditate voluptas, totam vel sed repellat iure ex esse sit maxime
-            molestiae odit omnis doloribus alias, voluptatum nostrum! Modi
-            laborum at voluptates in mollitia adipisci numquam, animi
-            perferendis voluptatem exercitationem, laudantium tempore distinctio
-            repellat quaerat dicta eum nam ea fugiat facilis, consequuntur
-            aliquam. Autem blanditiis harum nisi rem facilis molestias deserunt
-            qui, dolor ex nam reprehenderit tempore error accusamus aspernatur
-            magni quaerat similique dignissimos iste, possimus commodi! Error
-            necessitatibus repellendus molestiae laborum explicabo, natus
-            obcaecati aspernatur laboriosam repellat soluta nam itaque
-            voluptates quos quis omnis ad iste. Deserunt labore earum ut saepe
-            ipsum!
-          </div>
-          <div className="text-lg">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt,
-            illo nisi doloremque rerum magni beatae? Beatae atque dolores,
-            cupiditate voluptas, totam vel sed repellat iure ex esse sit maxime
-            molestiae odit omnis doloribus alias, voluptatum nostrum! Modi
-            laborum at voluptates in mollitia adipisci numquam, animi
-            perferendis voluptatem exercitationem, laudantium tempore distinctio
-            repellat quaerat dicta eum nam ea fugiat facilis, consequuntur
-            aliquam. Error necessitatibus repellendus molestiae laborum
-            explicabo, natus obcaecati aspernatur laboriosam repellat soluta nam
-            itaque voluptates quos quis omnis ad iste. Deserunt labore earum ut
-            saepe ipsum! aliquam. Error necessitatibus repellendus molestiae
-            laborum explicabo, natus obcaecati aspernatur laboriosam repellat
-            soluta nam itaque voluptates quos quis omnis ad iste. Deserunt
-            labore earum ut saepe ipsum!
-          </div>
-        </section>
-      </main>
+      <VStack as="main" w="full" gap="0">
+        {/* Navigation */}
+        <Nav />
+        {/* Hero */}
+        <Flex
+          w="full"
+          minW="sm"
+          h="750"
+          alignItems="center"
+          position="relative"
+          overflow="hidden"
+        >
+          {/* Spline */}
+          <Box position="absolute" top="0" left="0" bottom="0" right="-500">
+            <Spline scene="https://prod.spline.design/zmCqdmF-WwDqk3Mi/scene.splinecode" />
+          </Box>
+          {/* Tagline */}
+          <VStack
+            alignItems={["center", "flex-start"]}
+            position="absolute"
+            w="full"
+            ml={[0, "50"]}
+            mt={[-80, -40]}
+            gap="4"
+          >
+            <Heading as="h1" size={["2xl", "4xl"]}>
+              Daily puzzles.
+            </Heading>
+            <Heading as="h1" size={["2xl", "4xl"]} ml={[0, "40"]}>
+              Play together.
+            </Heading>
+            <Heading as="h1" size={["2xl", "4xl"]} ml={[0, "20"]}>
+              Exercise your mind.
+            </Heading>
+          </VStack>
+        </Flex>
+      </VStack>
     </>
   );
 }
