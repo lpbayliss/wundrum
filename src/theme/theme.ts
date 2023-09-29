@@ -1,4 +1,4 @@
-import { extendTheme, type ThemeOverride } from "@chakra-ui/react";
+import { extendTheme, type Theme, type ThemeOverride } from "@chakra-ui/react";
 import colors from "./colors";
 import semanticTokens from "./semantic-tokens";
 import styles from "./styles";
@@ -15,4 +15,4 @@ const overrides: ThemeOverride = {
   config,
 };
 
-export default extendTheme(overrides);
+export default extendTheme(overrides) as Theme;

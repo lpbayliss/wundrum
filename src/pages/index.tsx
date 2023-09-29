@@ -1,5 +1,5 @@
 /* eslint-disable formatjs/no-literal-string-in-jsx */
-import { Box, Flex, Heading, VStack, useColorMode } from "@chakra-ui/react";
+import { Box, Flex, Heading, VStack } from "@chakra-ui/react";
 import Spline from "@splinetool/react-spline";
 import Head from "next/head";
 import { useIntl } from "react-intl";
@@ -7,7 +7,6 @@ import Nav from "~/components/nav";
 
 export default function Home() {
   const intl = useIntl();
-  const { colorMode } = useColorMode();
 
   return (
     <>
