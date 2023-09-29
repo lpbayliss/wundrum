@@ -1,6 +1,4 @@
-import { type Theme } from "@chakra-ui/react";
-
-const semanticTokens: Theme["semanticTokens"] = {
+const semanticTokens = {
   colors: {
     "wundrum-body-text": {
       _light: "text.900",
