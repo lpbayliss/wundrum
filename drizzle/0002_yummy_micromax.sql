@@ -1,0 +1,1 @@
+ALTER TABLE "wundrum_puzzles" ADD COLUMN "type" varchar NOT NULL;

@@ -1,17 +1,20 @@
 import { relations, sql } from "drizzle-orm";
 import {
-  bigserial,
   index,
   integer,
+  jsonb,
   pgTableCreator,
   primaryKey,
   text,
   timestamp,
-  uniqueIndex,
+  uuid,
   varchar,
 } from "drizzle-orm/pg-core";
 
 import { type AdapterAccount } from "next-auth/adapters";
+import { type SpellingBeePuzzle } from "~/utils/puzzles/spelling-bee";
+
+type PUZZLE_TYPES = "SPELLING_BEE" | "UNKNOWN";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -20,19 +23,6 @@ import { type AdapterAccount } from "next-auth/adapters";
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
 export const pgTable = pgTableCreator((name) => `wundrum_${name}`);
-
-export const example = pgTable(
-  "example",
-  {
-    id: bigserial("id", { mode: "number" }).primaryKey(),
-    name: varchar("name", { length: 256 }),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updatedAt").defaultNow(),
-  },
-  (example) => ({
-    nameIndex: uniqueIndex("name_idx").on(example.name),
-  }),
-);
 
 export const users = pgTable("user", {
   id: varchar("id", { length: 255 }).notNull().primaryKey(),
@@ -104,4 +94,20 @@ export const verificationTokens = pgTable(
   (vt) => ({
     compoundKey: primaryKey(vt.identifier, vt.token),
   }),
+);
+
+export const puzzles = pgTable(
+  "puzzles",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updatedAt").defaultNow(),
+    type: varchar("type").notNull().$type<PUZZLE_TYPES>(),
+    schemaVersion: integer("schema_version").notNull(),
+    data: jsonb("data").$type<SpellingBeePuzzle>(),
+    hash: uuid("hash").notNull(),
+  },
+  // (puzzle) => ({
+  //   nameIndex: uniqueIndex("name_idx").on(puzzle.name),
+  // }),
 );
