@@ -24,16 +24,19 @@ const fetchLatestOrCrewNewSpellingBeeUseCase = async (ctx: Context) => {
   if (puzzle && isToday(puzzle.createdAt)) return puzzle;
   const newPuzzle = await generateValidPuzzle(10, 100);
 
-  const returned = await ctx.db
-    .insert(puzzles)
-    .values({
-      type: "SPELLING_BEE",
-      schemaVersion: 1,
-      data: newPuzzle,
-      hash: md5(JSON.stringify(newPuzzle)),
-    })
-    .returning();
-
+  const returned = (
+    await ctx.db
+      .insert(puzzles)
+      .values({
+        type: "SPELLING_BEE",
+        schemaVersion: 1,
+        data: newPuzzle,
+        hash: md5(JSON.stringify(newPuzzle)),
+      })
+      .returning()
+  )[0];
+  if (!returned) throw new TRPCClientError("Failed to create puzzle");
+  
   return returned;
 };
 

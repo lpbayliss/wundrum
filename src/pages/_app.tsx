@@ -1,7 +1,7 @@
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { type AppType } from "next/app";
-
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { api } from "~/utils/api";
 import { IntlProvider } from "react-intl";
 import { useRouter } from "next/router";
@@ -22,6 +22,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
     >
       <ChakraProvider resetCSS theme={theme}>
         <SessionProvider session={session}>
+          {process.env.NODE_ENV !== "production" && (
+            <ReactQueryDevtools initialIsOpen={false} />
+          )}
           <Component {...pageProps} />
         </SessionProvider>
       </ChakraProvider>

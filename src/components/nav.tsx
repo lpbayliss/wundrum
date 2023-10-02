@@ -22,6 +22,7 @@ import {
   SunIcon,
 } from "@chakra-ui/icons";
 import { signIn, signOut, useSession } from "next-auth/react";
+import NextLink from "next/link";
 
 const Nav = () => {
   const { data } = useSession();
@@ -63,7 +64,9 @@ const Nav = () => {
             </MenuButton>
             <MenuList>
               <MenuItem>Wordel</MenuItem>
-              <MenuItem>Spelling Boa</MenuItem>
+              <MenuItem as={NextLink} href="/games/spelling-bee">
+                Spelling Boa
+              </MenuItem>
               <MenuItem>Letter Squared</MenuItem>
               <MenuItem>Crossyword</MenuItem>
               <MenuItem>Find-A-Word</MenuItem>
@@ -71,7 +74,6 @@ const Nav = () => {
             </MenuList>
           </Menu>
         </HStack>
-
         {/* Right */}
         <HStack as={ListItem}>
           <Hide above="md">
