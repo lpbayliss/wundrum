@@ -77,8 +77,22 @@ const SpellingBeePage = () => {
         isClosable: true,
       });
 
-    const word = puzzle.data.answers[wordInput.toLowerCase()];
-    if (!word)
+    if (
+      !wordInput
+        .toLowerCase()
+        .split("")
+        .every((letter) => puzzle.data?.letters.includes(letter))
+    )
+      return void toast({
+        title: "Word contains an invalid letter",
+        status: "warning",
+        duration: 3000,
+        isClosable: true,
+      });
+
+    const wordScore = puzzle.data.answers[wordInput.toLowerCase()];
+
+    if (!wordScore)
       return void toast({
         title: "Unknown word",
         status: "warning",
@@ -95,9 +109,7 @@ const SpellingBeePage = () => {
       });
 
     setFoundWords((prev) => [...prev, wordInput]);
-    setScore(
-      (prev) => prev + (puzzle?.data?.answers[wordInput.toLowerCase()] ?? 0),
-    );
+    setScore((prev) => prev + wordScore);
     setWordInput("");
 
     toast({
