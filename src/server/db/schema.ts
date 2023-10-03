@@ -12,9 +12,11 @@ import {
 } from "drizzle-orm/pg-core";
 
 import { type AdapterAccount } from "next-auth/adapters";
+import { z } from "zod";
 import { type SpellingBeePuzzle } from "~/utils/puzzles/spelling-bee";
 
-type PUZZLE_TYPES = "SPELLING_BEE" | "UNKNOWN";
+export const PuzzleTypeSchema = z.enum(["SPELLING_BEE", "UNKNOWN"]);
+export type PuzzleTypes = z.infer<typeof PuzzleTypeSchema>;
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -102,7 +104,7 @@ export const puzzles = pgTable(
     id: uuid("id").defaultRandom().primaryKey(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updatedAt").defaultNow(),
-    type: varchar("type").notNull().$type<PUZZLE_TYPES>(),
+    type: varchar("type").notNull().$type<PuzzleTypes>(),
     schemaVersion: integer("schema_version").notNull(),
     data: jsonb("data").$type<SpellingBeePuzzle>(),
     hash: uuid("hash").notNull(),

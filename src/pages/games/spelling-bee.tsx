@@ -25,6 +25,7 @@ import {
   useMemo,
   useState,
   type MouseEventHandler,
+  useEffect,
 } from "react";
 import Nav from "~/components/nav";
 import { api } from "~/utils/api";
@@ -40,6 +41,26 @@ const SpellingBeePage = () => {
   const [wordInput, setWordInput] = useState<string>("");
   const [foundWords, setFoundWords] = useState<string[]>([]);
   const [score, setScore] = useState<number>(0);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!puzzle?.id) return;
+
+    const stringifiedFoundWords = localStorage.getItem(
+      `spelling-bee-found-words-${puzzle?.id}`,
+    );
+    const stringifiedScore = localStorage.getItem(
+      `spelling-bee-score-${puzzle?.id}`,
+    );
+
+    if (!stringifiedFoundWords || !stringifiedScore) return;
+
+    const parsedFoundWords = JSON.parse(stringifiedFoundWords) as string[];
+    setFoundWords(parsedFoundWords);
+
+    const parsedScore = JSON.parse(stringifiedScore) as number;
+    setScore(parsedScore);
+  }, [puzzle?.id]);
 
   const progress = useMemo<number>(() => {
     if (!puzzle?.data?.maxScore) return 0;
@@ -108,8 +129,24 @@ const SpellingBeePage = () => {
         isClosable: true,
       });
 
-    setFoundWords((prev) => [...prev, wordInput]);
-    setScore((prev) => prev + wordScore);
+    setFoundWords((prev) => {
+      const newState = [...prev, wordInput];
+      localStorage.setItem(
+        `spelling-bee-found-words-${puzzle?.id}`,
+        JSON.stringify(newState),
+      );
+      return newState;
+    });
+
+    setScore((prev) => {
+      const newState = prev + wordScore;
+      localStorage.setItem(
+        `spelling-bee-score-${puzzle?.id}`,
+        JSON.stringify(newState),
+      );
+      return newState;
+    });
+
     setWordInput("");
 
     toast({
