@@ -14,7 +14,6 @@ import {
   ListItem,
   Progress,
   SimpleGrid,
-  Text,
   VStack,
   useToast,
 } from "@chakra-ui/react";

@@ -38,7 +38,7 @@ const getPuzzleLetters = (letterCount = 7): string[] => {
 const getPuzzleCenterLetter = (letters: string[]): string =>
   letters[Math.floor(Math.random() * letters.length)]!;
 
-const getPossibleWords = async (
+const getPossibleWords = (
   wordList: string[],
   letters: string[],
   centralLetter: string,
