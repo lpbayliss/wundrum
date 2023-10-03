@@ -39,12 +39,12 @@ const getPuzzleCenterLetter = (letters: string[]): string =>
   letters[Math.floor(Math.random() * letters.length)]!;
 
 const getPossibleWords = async (
+  wordList: string[],
   letters: string[],
   centralLetter: string,
   minWordLength = 4,
 ): Promise<SpellingBeePuzzle["answers"]> => {
   const possibleWords: SpellingBeePuzzle["answers"] = {};
-  const wordList = await loadWords();
   for (const word of wordList) {
     if (word.length < minWordLength) continue;
     if (!word.includes(centralLetter)) continue;
@@ -55,10 +55,12 @@ const getPossibleWords = async (
   return possibleWords;
 };
 
-const generatePuzzle = async (): Promise<SpellingBeePuzzle> => {
+const generatePuzzle = async (
+  wordList: string[],
+): Promise<SpellingBeePuzzle> => {
   const letters = getPuzzleLetters();
   const centralLetter = getPuzzleCenterLetter(letters);
-  const answers = await getPossibleWords(letters, centralLetter);
+  const answers = await getPossibleWords(wordList, letters, centralLetter);
 
   return {
     letters,
@@ -75,9 +77,11 @@ export const generateValidPuzzle = async (
   minAnswers = 10,
   minScore = 100,
 ): Promise<SpellingBeePuzzle> => {
+  const wordList = await loadWords();
+
   let validPuzzle = null;
   while (validPuzzle === null) {
-    const puzzle = await generatePuzzle();
+    const puzzle = await generatePuzzle(wordList);
     if (
       Object.keys(puzzle.answers).length >= minAnswers &&
       puzzle.maxScore >= minScore
