@@ -43,7 +43,7 @@ const getPossibleWords = (
   letters: string[],
   centralLetter: string,
   minWordLength = 4,
-): Promise<SpellingBeePuzzle["answers"]> => {
+): SpellingBeePuzzle["answers"] => {
   const possibleWords: SpellingBeePuzzle["answers"] = {};
   for (const word of wordList) {
     if (word.length < minWordLength) continue;
@@ -55,12 +55,10 @@ const getPossibleWords = (
   return possibleWords;
 };
 
-const generatePuzzle = async (
-  wordList: string[],
-): Promise<SpellingBeePuzzle> => {
+const generatePuzzle = (wordList: string[]): SpellingBeePuzzle => {
   const letters = getPuzzleLetters();
   const centralLetter = getPuzzleCenterLetter(letters);
-  const answers = await getPossibleWords(wordList, letters, centralLetter);
+  const answers = getPossibleWords(wordList, letters, centralLetter);
 
   return {
     letters,
@@ -81,7 +79,7 @@ export const generateValidPuzzle = async (
 
   let validPuzzle = null;
   while (validPuzzle === null) {
-    const puzzle = await generatePuzzle(wordList);
+    const puzzle = generatePuzzle(wordList);
     if (
       Object.keys(puzzle.answers).length >= minAnswers &&
       puzzle.maxScore >= minScore
