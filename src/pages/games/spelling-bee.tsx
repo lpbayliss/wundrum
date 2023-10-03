@@ -14,6 +14,7 @@ import {
   ListItem,
   Progress,
   SimpleGrid,
+  Text,
   VStack,
   useToast,
 } from "@chakra-ui/react";
@@ -23,6 +24,7 @@ import {
   type MouseEvent,
   useMemo,
   useState,
+  type MouseEventHandler,
 } from "react";
 import Nav from "~/components/nav";
 import { api } from "~/utils/api";
@@ -111,12 +113,25 @@ const SpellingBeePage = () => {
       setWordInput((prev) => prev + letter);
     };
 
+  const handleClearOnClick: MouseEventHandler<HTMLButtonElement> = () => {
+    setWordInput("");
+  };
+
   return (
     <VStack as="main" w="full" gap="8">
       {/* Navigation */}
       <Nav />
-      <Heading as="h2">Spelling Bee</Heading>
-      <Box maxW="4xl" overflowX="hidden">
+      <VStack maxW="md">
+        <Heading as="h2">Spelling Bee</Heading>
+        <Text fontSize="sm" fontStyle="italic" textAlign="center">
+          Make as many words as possible with the letters provided. Every word
+          must include the highlighted letter.
+        </Text>
+      </VStack>
+      <Box maxW="md" w="full" px="2">
+        <Divider />
+      </Box>
+      <Box w="sm" overflowX="hidden">
         {puzzle && (
           <VStack gap="4">
             <HStack w="full">
@@ -141,7 +156,7 @@ const SpellingBeePage = () => {
               ))}
             </HStack>
             <VStack as="form" w="full" onSubmit={handleSubmitWord}>
-              <FormControl>
+              <HStack as={FormControl}>
                 <Input
                   type="text"
                   textAlign="center"
@@ -149,37 +164,47 @@ const SpellingBeePage = () => {
                   value={wordInput}
                   onChange={handleWordInputOnChange}
                 />
-                <Input hidden type="submit" />
-              </FormControl>
+              </HStack>
+              <HStack as={FormControl}>
+                <Button variant="outline" flex="1" onClick={handleClearOnClick}>
+                  Clear
+                </Button>
+                <Input type="submit" flex="1" />
+              </HStack>
             </VStack>
-            {foundWords.length && (
-              <>
-                <Divider my="4" />
-                <HStack w="full" h="100" alignItems="flex-start">
-                  <SimpleGrid
-                    columns={2}
-                    spacing={4}
-                    w="full"
-                    textAlign="center"
-                  >
-                    {foundWords.map((word) => (
-                      <Card
-                        key={`found-word-${word}`}
-                        variant="outline"
-                        bg="wundrum-body-bg"
-                      >
-                        <CardBody py="2" fontWeight="bold">
-                          {word.toUpperCase()}
-                        </CardBody>
-                      </Card>
-                    ))}
-                  </SimpleGrid>
-                </HStack>
-              </>
-            )}
           </VStack>
         )}
       </Box>
+      <Box maxW="md" w="full" px="2">
+        <Divider />
+      </Box>
+      {foundWords.length && (
+        <VStack
+          w="full"
+          maxW="sm"
+          h="100"
+          textAlign="center"
+          alignItems="center"
+          gap="4"
+        >
+          <Heading as="h3" size="md">
+            Found words
+          </Heading>
+          <SimpleGrid columns={2} spacing={4} w="full" textAlign="center">
+            {foundWords.map((word) => (
+              <Card
+                key={`found-word-${word}`}
+                variant="outline"
+                bg="wundrum-body-bg"
+              >
+                <CardBody py="2" fontWeight="bold">
+                  {word.toUpperCase()}
+                </CardBody>
+              </Card>
+            ))}
+          </SimpleGrid>
+        </VStack>
+      )}
     </VStack>
   );
 };
