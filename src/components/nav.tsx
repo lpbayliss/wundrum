@@ -38,33 +38,33 @@ const Nav = () => {
 
   return (
     <Box
-      w="full"
       zIndex="overlay"
+      w="full"
       bg={colorMode === "light" ? "accent.500" : "secondary.800"}
     >
       <HStack
         as={List}
         justifyContent="space-between"
-        p="4"
-        mx="auto"
         maxW="8xl"
+        mx="auto"
+        p="4"
       >
         {/* Left */}
         <HStack as={ListItem} alignItems="center">
-          <Heading as="h1" size="xl" mr="5">
+          <Heading as="h1" mr="5" size="xl">
             <FormattedMessage id="APP_NAME" />
           </Heading>
           <Menu>
             <MenuButton
               as={Button}
-              variant="ghost"
               rightIcon={<ChevronDownIcon />}
+              variant="ghost"
             >
               Games
             </MenuButton>
             <MenuList>
               <MenuItem>Wordel</MenuItem>
-              <MenuItem as={NextLink} href="/games/spelling-bee">
+              <MenuItem as={NextLink} href="/games/spelling-boa">
                 Spelling Boa
               </MenuItem>
               <MenuItem>Letter Squared</MenuItem>
@@ -99,16 +99,16 @@ const Nav = () => {
           </Hide>
           <Hide below="md">
             <Button
-              variant="ghost"
               onClick={data ? handleSignOut : handleSignIn}
+              variant="ghost"
             >
               {data ? "Sign out" : "Sign in"}
             </Button>
             <IconButton
-              variant="ghost"
               aria-label="Toggle color mode"
               icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
               onClick={toggleColorMode}
+              variant="ghost"
             />
           </Hide>
         </HStack>

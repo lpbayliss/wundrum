@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { getMessages } from "~/i18n/getMessages";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "~/theme/theme";
+import Layout from "~/components/layout";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -22,10 +23,12 @@ const MyApp: AppType<{ session: Session | null }> = ({
     >
       <ChakraProvider resetCSS theme={theme}>
         <SessionProvider session={session}>
-          {process.env.NODE_ENV !== "production" && (
-            <ReactQueryDevtools initialIsOpen={false} />
-          )}
-          <Component {...pageProps} />
+          <Layout>
+            {process.env.NODE_ENV !== "production" && (
+              <ReactQueryDevtools initialIsOpen={false} />
+            )}
+            <Component {...pageProps} />
+          </Layout>
         </SessionProvider>
       </ChakraProvider>
     </IntlProvider>

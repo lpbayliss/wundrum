@@ -133,6 +133,9 @@ devDependencies:
   eslint-config-next:
     specifier: ^13.4.19
     version: 13.5.3(eslint@8.50.0)(typescript@5.2.2)
+  eslint-plugin-chakra-ui:
+    specifier: ^0.10.1
+    version: 0.10.1(eslint@8.50.0)(typescript@5.2.2)
   eslint-plugin-formatjs:
     specifier: ^4.10.5
     version: 4.10.5(eslint@8.50.0)
@@ -3325,6 +3328,19 @@ packages:
       eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.7.3)(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.28.1)(eslint@8.50.0)
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /eslint-plugin-chakra-ui@0.10.1(eslint@8.50.0)(typescript@5.2.2):
+    resolution: {integrity: sha512-xv0Y5Ly7s31NWiM0Au3ykTLyKF6OX2WeAuChOtOuCsFmEJ0/q5QZneQF8l/iIWD20lyD3pMcevZ93T86nz5+Jw==}
+    engines: {node: 12.x || 14.x || >= 16, pnpm: '>=8.6.6'}
+    peerDependencies:
+      eslint: '>=6'
+    dependencies:
+      '@typescript-eslint/utils': 6.7.3(eslint@8.50.0)(typescript@5.2.2)
+      eslint: 8.50.0
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
     dev: true
 
   /eslint-plugin-formatjs@4.10.5(eslint@8.50.0):

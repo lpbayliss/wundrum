@@ -106,7 +106,7 @@ export const puzzles = pgTable(
     updatedAt: timestamp("updatedAt").defaultNow(),
     type: varchar("type").notNull().$type<PuzzleTypes>(),
     schemaVersion: integer("schema_version").notNull(),
-    data: jsonb("data").$type<SpellingBeePuzzle>(),
+    data: jsonb("data").notNull().$type<SpellingBeePuzzle>(),
     hash: uuid("hash").notNull(),
   },
   // (puzzle) => ({

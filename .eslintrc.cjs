@@ -4,7 +4,7 @@ const config = {
   parserOptions: {
     project: true,
   },
-  plugins: ["@typescript-eslint", "formatjs"],
+  plugins: ["@typescript-eslint", "formatjs", "chakra-ui"],
   extends: [
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended-type-checked",
@@ -29,6 +29,9 @@ const config = {
       { enforceDescriptions: false },
     ],
     "formatjs/enforce-id": ["error"],
+    "chakra-ui/props-order": "error",
+    "chakra-ui/props-shorthand": "error",
+    "chakra-ui/require-specific-component": "error",
   },
 };
 
