@@ -15,10 +15,10 @@ const loadWords = (): Promise<string[]> => {
   return new Promise((resolve, reject) => {
     const words: string[] = [];
     const dataPath = path.resolve(process.cwd(), "src/data");
-    createReadStream(dataPath + "/word-list.csv")
+    createReadStream(dataPath + "/word-list-2.csv")
       .pipe(parse({ delimiter: ",", from_line: 1 }))
       .on("data", (row: string[]) =>
-        row[0] ? void words.push(row[0]) : void null,
+        row[0] && !row[0].includes("'s") ? void words.push(row[0]) : void null,
       )
       .on("error", (error) => reject(error))
       .on("end", () => resolve(words));
@@ -72,7 +72,8 @@ const generatePuzzle = (wordList: string[]): SpellingBeePuzzle => {
 };
 
 export const generateValidPuzzle = async (
-  minAnswers = 10,
+  minAnswers = 20,
+  maxAnswers = 45,
   minScore = 100,
 ): Promise<SpellingBeePuzzle> => {
   const wordList = await loadWords();
@@ -80,10 +81,10 @@ export const generateValidPuzzle = async (
   let validPuzzle = null;
   while (validPuzzle === null) {
     const puzzle = generatePuzzle(wordList);
-    if (
-      Object.keys(puzzle.answers).length >= minAnswers &&
-      puzzle.maxScore >= minScore
-    )
+    const answerCount = Object.keys(puzzle.answers).length;
+    const hasValidAnswerCount =
+      minAnswers <= answerCount && answerCount <= maxAnswers;
+    if (hasValidAnswerCount && puzzle.maxScore >= minScore)
       validPuzzle = puzzle;
   }
   return validPuzzle;

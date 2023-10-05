@@ -21,7 +21,7 @@ const fetchLatestOrCrewNewSpellingBeeUseCase = async (ctx: Context) => {
   )[0];
 
   if (puzzle && isToday(puzzle.createdAt)) return puzzle;
-  const newPuzzle = await generateValidPuzzle(10, 100);
+  const newPuzzle = await generateValidPuzzle();
 
   const returned = (
     await ctx.db
