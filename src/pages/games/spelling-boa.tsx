@@ -359,6 +359,7 @@ const SpellingBeePage = () => {
         gap="10"
         w="full"
         maxW={["xl", null, null, "6xl"]}
+        minH="600px"
         mx="auto"
       >
         {/* Progress & Found Words */}
@@ -378,7 +379,7 @@ const SpellingBeePage = () => {
           <FoundWordBox words={foundWords} />
         </Box>
         {/* Game Controls */}
-        <Box w="full">
+        <Box w="full" my="auto">
           {puzzle && (
             <GameControls
               letters={puzzle.data.letters}
