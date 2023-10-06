@@ -1,0 +1,1 @@
+ALTER TABLE "wundrum_puzzles" RENAME TO "wundrum_puzzle";

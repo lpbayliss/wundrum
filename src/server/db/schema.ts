@@ -99,7 +99,7 @@ export const verificationTokens = pgTable(
 );
 
 export const puzzles = pgTable(
-  "puzzles",
+  "puzzle",
   {
     id: uuid("id").defaultRandom().primaryKey(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
