@@ -1,5 +1,5 @@
 import { TRPCClientError } from "@trpc/client";
-import { desc, eq } from "drizzle-orm";
+import { desc, eq, isNull } from "drizzle-orm";
 import isToday from "date-fns/isToday";
 import md5 from "md5";
 
@@ -16,6 +16,7 @@ import { z } from "zod";
 
 const fetchLatestOrCrewNewSpellingBeeUseCase = async (ctx: Context) => {
   const puzzle = await ctx.db.query.puzzles.findFirst({
+    where: isNull(puzzles.createdBy),
     orderBy: [desc(puzzles.createdAt)],
   });
 
