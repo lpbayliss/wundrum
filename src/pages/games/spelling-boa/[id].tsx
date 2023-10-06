@@ -22,7 +22,13 @@ import {
   VStack,
   useToast,
 } from "@chakra-ui/react";
+import {
+  type GetServerSideProps,
+  GetServerSidePropsResult,
+  type NextPage,
+} from "next";
 import Head from "next/head";
+import { useParams } from "next/navigation";
 import {
   type ChangeEventHandler,
   type FormEventHandler,
@@ -229,12 +235,23 @@ const GameControls = ({
   );
 };
 
-const SpellingBeePage = () => {
+export const getServerSideProps: GetServerSideProps<{
+  id: string;
+}> = async (context) => {
+  return {
+    props: {
+      id: context.params?.id as string,
+    },
+  };
+};
+
+const SpellingBeePage: NextPage<{ id: string }> = ({ id }) => {
   const toast = useToast();
 
   const [foundWords, setFoundWords] = useState<string[]>([]);
   const [score, setScore] = useState<number>(0);
-  const { data: puzzle } = api.puzzle.getPuzzle.useQuery("SPELLING_BEE", {
+  const { data: puzzle } = api.puzzle.getPuzzle.useQuery(id, {
+    enabled: !!id,
     staleTime: Infinity,
     cacheTime: Infinity,
   });
@@ -343,7 +360,7 @@ const SpellingBeePage = () => {
   return (
     <>
       <Head>
-        <title>Spelling Boa - Wundrum</title>
+        <title>Spelling Boa - Todays Wundrum</title>
       </Head>
       {/* Title */}
       <VStack w="full" mt="8" mb="8">

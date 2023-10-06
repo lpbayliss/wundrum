@@ -63,14 +63,14 @@ const Nav = () => {
               Games
             </MenuButton>
             <MenuList>
-              <MenuItem>Wordel</MenuItem>
+              {/* <MenuItem>Wordel</MenuItem> */}
               <MenuItem as={NextLink} href="/games/spelling-boa">
                 Spelling Boa
               </MenuItem>
-              <MenuItem>Letter Squared</MenuItem>
-              <MenuItem>Crossyword</MenuItem>
-              <MenuItem>Find-A-Word</MenuItem>
-              <MenuItem>Quick Mafs</MenuItem>
+              {/* <MenuItem>Letter Squared</MenuItem> */}
+              {/* <MenuItem>Crossyword</MenuItem> */}
+              {/* <MenuItem>Find-A-Word</MenuItem> */}
+              {/* <MenuItem>Quick Mafs</MenuItem> */}
             </MenuList>
           </Menu>
         </HStack>

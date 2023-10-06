@@ -112,7 +112,9 @@ export const puzzles = pgTable(
     hash: uuid("hash").notNull(),
   },
   (puzzle) => ({
-    unq: unique().on(puzzle.id, puzzle.createdBy).nullsNotDistinct(),
+    unq: unique()
+      .on(puzzle.id, puzzle.hash, puzzle.createdBy)
+      .nullsNotDistinct(),
   }),
 );
 
