@@ -1,0 +1,1 @@
+ALTER TABLE "wundrum_puzzle" ADD CONSTRAINT "wundrum_puzzle_id_created_by_unique" UNIQUE NULLS NOT DISTINCT("id","created_by");

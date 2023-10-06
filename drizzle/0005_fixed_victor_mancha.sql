@@ -1,0 +1,1 @@
+ALTER TABLE "wundrum_puzzle" ADD COLUMN "created_by" varchar(255);

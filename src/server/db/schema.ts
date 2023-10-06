@@ -7,6 +7,7 @@ import {
   primaryKey,
   text,
   timestamp,
+  unique,
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
@@ -103,13 +104,21 @@ export const puzzles = pgTable(
   {
     id: uuid("id").defaultRandom().primaryKey(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
+    createdBy: varchar("created_by", { length: 255 }),
     updatedAt: timestamp("updatedAt").defaultNow(),
     type: varchar("type").notNull().$type<PuzzleTypes>(),
     schemaVersion: integer("schema_version").notNull(),
     data: jsonb("data").notNull().$type<SpellingBeePuzzle>(),
     hash: uuid("hash").notNull(),
   },
-  // (puzzle) => ({
-  //   nameIndex: uniqueIndex("name_idx").on(puzzle.name),
-  // }),
+  (puzzle) => ({
+    unq: unique().on(puzzle.id, puzzle.createdBy).nullsNotDistinct(),
+  }),
 );
+
+export const puzzlesRelations = relations(puzzles, ({ one }) => ({
+  createdBy: one(users, {
+    fields: [puzzles.createdBy],
+    references: [users.id],
+  }),
+}));
