@@ -1,5 +1,5 @@
 import { TRPCClientError } from "@trpc/client";
-import { desc, eq, isNull } from "drizzle-orm";
+import { and, desc, eq, isNull } from "drizzle-orm";
 import isToday from "date-fns/isToday";
 import md5 from "md5";
 
@@ -37,6 +37,29 @@ const fetchLatestOrCrewNewSpellingBeeUseCase = async (ctx: Context) => {
   if (!returned) throw new TRPCClientError("Failed to create puzzle");
 
   return returned;
+};
+
+const fetchAllSpellingBeePuzzlesForUserUseCase = async (
+  limit: number,
+  offset: number,
+  ctx: Context,
+) => {
+  if (!ctx.session?.user) throw new TRPCError({ code: "FORBIDDEN" });
+
+  const puzzleCollection = await ctx.db
+    .selectDistinct()
+    .from(puzzles)
+    .where(
+      and(
+        eq(puzzles.type, "SPELLING_BEE"),
+        eq(puzzles.createdBy, ctx.session.user.id),
+      ),
+    )
+    .orderBy(desc(puzzles.createdAt))
+    .limit(limit)
+    .offset(offset);
+
+  return puzzleCollection;
 };
 
 const createPuzzleForUser = async (ctx: Context) => {
@@ -88,6 +111,23 @@ export const puzzleRouter = createTRPCRouter({
     .input(z.string().uuid("id"))
     .query(async ({ ctx, input: puzzleId }) => {
       return getPuzzleByIdForUser(ctx, puzzleId);
+    }),
+  getAllPuzzlesForUser: protectedProcedure
+    .input(
+      z.object({
+        type: PuzzleTypeSchema,
+        limit: z.number().default(10),
+        offset: z.number().default(0),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      if (input.type === "SPELLING_BEE")
+        return await fetchAllSpellingBeePuzzlesForUserUseCase(
+          input.limit,
+          input.offset,
+          ctx,
+        );
+      throw new TRPCClientError("Invalid puzzle type");
     }),
   createUserPuzzle: protectedProcedure
     .input(PuzzleTypeSchema)
