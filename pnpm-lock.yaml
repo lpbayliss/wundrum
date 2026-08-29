@@ -90,8 +90,8 @@ dependencies:
     specifier: ^6.4.7
     version: 6.4.7(react@18.2.0)(typescript@5.2.2)
   superjson:
-    specifier: ^1.13.1
-    version: 1.13.1
+    specifier: ^2.0.0
+    version: 2.2.6
   zod:
     specifier: ^3.21.4
     version: 3.22.2
@@ -2751,6 +2751,11 @@ packages:
       is-what: 4.1.15
     dev: false
 
+  /copy-anything@4.1.0:
+    resolution: {integrity: sha512-ufbM3smX/Jbnpk5wcQjzd1MgBpzmqfNETUAyZNrGwU9foRlyHoGzMMBBCRzEhQLBjZfFDE1W2ufPXX2vdWkV8Q==}
+    engines: {node: '>=18'}
+    dev: false
+
   /copy-to-clipboard@3.3.3:
     resolution: {integrity: sha512-2KV8NhB5JqC3ky0r9PMCAZKbUHSwtEo4CwCs0KXgruG43gX5PMqDEBbVU4OUzw2MuAWUfsuFmWvEKG5QRfSnJA==}
     dependencies:
@@ -5117,6 +5122,13 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       copy-anything: 3.0.5
+    dev: false
+
+  /superjson@2.2.6:
+    resolution: {integrity: sha512-H+ue8Zo4vJmV2nRjpx86P35lzwDT3nItnIsocgumgr0hHMQ+ZGq5vrERg9kJBo5AWGmxZDhzDo+WVIJqkB0cGA==}
+    engines: {node: '>=16'}
+    dependencies:
+      copy-anything: 4.1.0
     dev: false
 
   /supports-color@5.5.0:
